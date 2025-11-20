@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        .quarter-circle1{
+            width:170px;
+            height :170px;
+            background-color: red;
+            color: red;
+            border-top-left-radius: 150px;
+            position: absolute;
+            top: 150px;
+            left: 600px;
+            box-shadow: 0 0 20px 5px red;
+            animation: pulse 2s infinite;
+            animation-delay: 0s;
+        }
+        .q1{
+            width:170px;
+            height :170px;
+            background-color: red;
+            color: red;
+            border-top-left-radius: 150px;
+            position: absolute;
+            top: 150px;
+            left: 600px;
+            box-shadow: 0 0 20px 5px red;
+        }
+        .quarter-circle2{
+            width:170px;
+            height :170px;
+            background-color: green;
+            color:green;
+            border-top-right-radius: 150px;
+            position: absolute;
+            top: 150px;
+            left: 750px;
+            box-shadow: 0 0 20px 5px green;
+            animation: pulse 2s infinite;
+            animation-delay: 0.5s;
+        }
+        .q2{
+            width:170px;
+            height :170px;
+            background-color: green;
+            color:green;
+            border-top-right-radius: 150px;
+            position: absolute;
+            top: 150px;
+            left: 750px;
+            box-shadow: 0 0 20px 5px green;
+        }
+        
+        .quarter-circle3{
+            width:170px;
+            height :170px;
+            background-color:blue;
+            color: blue;
+            border-bottom-left-radius: 150px;
+            position: absolute;
+            top: 300px;
+            left: 600px;box-shadow: 0 0 20px 5px ;
+            box-shadow: 0 0 20px 5px blue;
+            animation: pulse 2s infinite;
+            animation-delay: 1s;
+        }
+        .qc3{
+            width:170px;
+            height :170px;
+            background-color:blue;
+            color: blue;
+            border-bottom-left-radius: 150px;
+            position: absolute;
+            top: 300px;
+            left: 600px;box-shadow: 0 0 20px 5px ;
+            box-shadow: 0 0 20px 5px blue;
+        }
+        
+        .quarter-circle4{
+            width:170px;
+            height :170px;
+            background-color: yellow;
+            color: yellow;
+            border-bottom-right-radius: 150px;
+            position: absolute;
+            top: 300px;
+            left: 750px;box-shadow: 0 0 20px 5px ;
+            box-shadow: 0 0 20px 5px yellow;
+            animation: pulse 2s infinite;
+            animation-delay: 1.5s;
+        }
+        .qc4{
+            width:170px;
+            height :170px;
+            background-color: yellow;
+            color: yellow;
+            border-bottom-right-radius: 150px;
+            position: absolute;
+            top: 300px;
+            left: 750px;box-shadow: 0 0 20px 5px ;
+            box-shadow: 0 0 20px 5px yellow;
+        }
+        @keyframes pulse {
+            0%, 100%{
+                box-shadow: 0 0 20px 5px currentColor;
+                opacity: 1;
+            }
+            50%{
+                box-shadow: 0 0 40px 20px currentColor;
+                opacity :0.8;
+            }
+        }
+        
+        .simon1{
+            color: aliceblue;
+            width: 150px;
+            height:150px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 230px;
+            left: 680px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px; /* Pixel fonts often look best at specific, larger sizes */
+            color: #FFFFFF;
+            border: none;
+            outline: none;
+        
+        }
+        .simon1::before {
+            content: ' SIMON SAYS'; 
+            color: aliceblue;
+            }
+        .simon1:hover {
+             background-color: #FFFFFF; /* New background for the entire button */
+            }
+        .simon1:hover::before {
+            content: 'START PLAYING'; 
+            color: black;
+}
+        
+        .simon2{
+            font-family: 'Press Start 2P', monospace;
+            font-size: 24px; /* Pixel fonts often look best at specific, larger sizes */
+            color: #FFFFFF;
+            width: 250px;
+            height:80px;
+            background-color: black;
+            border-radius: 30px;
+            position: absolute;
+            top: 490px;
+            left: 640px;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+        }
+        .simon3{
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px; /* Pixel fonts often look best at specific, larger sizes */
+            color: #FFFFFF;
+            width: 250px;
+            height:80px;
+            border-radius: 30px;
+            background-color: black;
+            position: absolute;
+            top: 580px;
+            left: 640px;
+            border: none;
+            outline: none;
+        }
+        /* --- Classe pour le Flash (Ajoutée par JS) --- */
+        .active {
+            opacity: 1;
+            box-shadow: 0 0 60px 25px currentColor !important; /* Ombre très intense pour le flash */
+            opacity: 0.8;
+            animation: none !important; /* Désactive l'animation de pulsation par défaut */
+            transition: box-shadow 0.05s; /* Rend le flash plus instantané */
+        }
+/* Ajoutez les styles d'affichage pour le bouton central dans la section jeu */
+        #jeu .simon1 {
+            display: flex; /* Permet d'aligner le statut du jeu */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        section { display: none; text-align: center; padding: 50px; }
+        #menu { display: block; }
+        .btn{
+            color: aliceblue;
+            width: 150px;
+            height:150px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 230px;
+            left: 680px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px; /* Pixel fonts often look best at specific, larger sizes */
+            color: #FFFFFF;
+            border: none;
+            outline: none;
+        }
+
+        /* --- Style du Scoreboard --- */
+        #best-score-display {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px; 
+            color:white; /* Vert pour le contraste et le style rétro */
+            position: absolute;
+            top: 100px; /* Positionnement au-dessus du jeu/menu central */
+            left: 640px; 
+            width: 250px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid white;
+            background-color: #000;
+            z-index: 5;
+}
+        #retour {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px; 
+            color:white; /* Vert pour le contraste et le style rétro */
+            position: absolute;
+            top: 100px; /* Positionnement au-dessus du jeu/menu central */
+            left: 640px; 
+            width: 250px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid white;
+            background-color: #000;
+            z-index: 5;
+
+
+        }
+
+    </style>
+</head>
+<body style="background-image: url(vector-black-future.jpg);">
+    <section id="menu" >
+        <div id="best-score-display">MEILLEUR SCORE: 0</div>
+        <div class="quarter-circle1"></div>
+        <div class="quarter-circle2"></div>
+        <div class="quarter-circle3"></div>
+        <div class="quarter-circle4"></div>
+        <button onclick="showSection('jeu')" class="simon1"></button>
+        <button onclick="showSection('rules')" class="simon2">RULES</button>
+        <button onclick="showSection('param')" class="simon3">PARAMETERES</button>
+    </section>
+    
+    <section id="jeu">
+        <button id="retour" onclick="showSection('menu')">Return to Menu</button>
+    
+        <div id="red-game" class="q1" data-color="red" onclick="handlePlayerClick('red')"></div>
+        <div id="green-game" class="q2" data-color="green" onclick="handlePlayerClick('green')"></div>
+        <div id="blue-game" class="qc3" data-color="blue" onclick="handlePlayerClick('blue')"></div>
+        <div id="yellow-game" class="qc4" data-color="yellow" onclick="handlePlayerClick('yellow')"></div>
+    
+        <button class="btn" id="game-center"></button>
+    </section>
+    
+    <section id="param">
+
+
+    </section>
+    <script src="test.js"></script>
+
+
+</body>
+</html>
