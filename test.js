@@ -8,11 +8,14 @@ let isPlayerTurn = false;
 let gameActive = false;
 
 // Constantes d'animation
-const FLASH_DURATION = 350; // Durée du flash lors de la démo
-const INTERVAL = 550;       // Délai entre le début de deux flashes
+let FLASH_DURATION = 350; // Durée du flash lors de la démo
+let INTERVAL = 550;       // Délai entre le début de deux flashes
 
 // --- ÉLÉMENTS DOM ---
-const Center = document.getElementById('center');
+
+
+
+const Center = document.getElementById('btn-game-center');
 const audioMap = {
     'red': new Audio('do.mp3'),
     'green': new Audio('re.mp3'),
@@ -123,12 +126,12 @@ function showSequence(sequence) {
 /** Démarre le tour du joueur. */
 function startPlayerTurn() {
     isPlayerTurn = true;
-    statusDisplay.textContent = 'YOUR TURN! \n ';
+    statusDisplay.textContent = 'Votre tour! \n ';
     const requiredClicks = gameSequence.length;
     let clickWord = (requiredClicks > 1) ? 'Clicks' : 'Click'; 
     
     // Mise à jour de l'affichage
-    roundInfo.textContent = `Repeat ${requiredClicks} ${clickWord}`;
+    roundInfo.textContent = ` \n Répetez \n ${requiredClicks} ${clickWord}`;
 }
 
 /** Gère le clic du joueur sur un quadrant. */
@@ -152,7 +155,7 @@ function checkPlayerInput() {
 
     if (playerSequence.length === gameSequence.length) {
         // SUCCÈS : Le joueur a réussi le tour
-        statusDisplay.textContent = 'GOOD!';
+        statusDisplay.textContent = 'BIEN!';
         isPlayerTurn = false;
         roundInfo.textContent='';
         round++; // Incrémenter le round
@@ -167,7 +170,7 @@ function nextRound() {
 
     playerSequence.length = 0;
     
-    roundInfo.textContent = `Round ${round} \n`;
+    roundInfo.textContent = `\n \n Tour ${round} \n`;
     
     // AJOUT: Nouvelle couleur pour rendre la séquence croissante
     const nextColor = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -234,7 +237,7 @@ function gameOver(isQuit) {
     const finalScore = round - 1; 
 
     if (!isQuit) {
-         statusDisplay.textContent = 'Fail! \n';
+         statusDisplay.textContent = 'Perte! \n';
          roundInfo.textContent = `Score: ${finalScore}`;
 
          // Vérifier et mettre à jour le meilleur score
@@ -242,7 +245,7 @@ function gameOver(isQuit) {
 
          let alertMessage = `Game Over! Score: ${finalScore}.`;
          if (isNewRecord) {
-             alertMessage += "\nNEW LOCAL SCORE ! 🏆";
+             alertMessage += "\nNOUVEAU SCORE LOCAL ! 🏆";
          }
          
          setTimeout(() => {

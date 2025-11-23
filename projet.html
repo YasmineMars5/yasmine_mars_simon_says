@@ -126,6 +126,7 @@
             color: #FFFFFF;
             border: none;
             outline: none;
+            cursor: pointer;
         
         }
         .simon1::before {
@@ -149,11 +150,12 @@
             background-color: black;
             border-radius: 30px;
             position: absolute;
-            top: 490px;
-            left: 640px;
+            top: 520px;
+            left: 630px;
             padding: 10px 15px;
             border: none;
             outline: none;
+            cursor: pointer;
         }
         .simon3{
             font-family: 'Press Start 2P', monospace;
@@ -164,10 +166,11 @@
             border-radius: 30px;
             background-color: black;
             position: absolute;
-            top: 580px;
-            left: 640px;
+            top: 610px;
+            left: 630px;
             border: none;
             outline: none;
+            cursor: pointer;
         }
         /* --- Classe pour le Flash (Ajoutée par JS) --- */
         .active {
@@ -208,8 +211,8 @@
             font-size: 10px; 
             color:white; /* Vert pour le contraste et le style rétro */
             position: absolute;
-            top: 100px; /* Positionnement au-dessus du jeu/menu central */
-            left: 640px; 
+            top: 90px; /* Positionnement au-dessus du jeu/menu central */
+            left: 620px; 
             width: 250px;
             text-align: center;
             padding: 10px;
@@ -222,8 +225,8 @@
             font-size: 10px; 
             color:white; /* Vert pour le contraste et le style rétro */
             position: absolute;
-            top: 100px; /* Positionnement au-dessus du jeu/menu central */
-            left: 640px; 
+            top: 90px; /* Positionnement au-dessus du jeu/menu central */
+            left: 630px; 
             width: 250px;
             text-align: center;
             padding: 10px;
@@ -232,6 +235,53 @@
             z-index: 5;
 
 
+        }
+        /* --- STYLE DE POSITIONNEMENT GÉNÉRAL --- */
+        #rules {
+            /* Maintient le conteneur actif */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+/* --- STYLE DE LA BOÎTE DE RÈGLES --- */
+        #rules-box-simple {
+            position: absolute; 
+            top: 200px;
+            left: 565px; /* Ajusté pour centrer une boîte plus petite */
+            width: 350px; /* Réduit la largeur */
+            padding: 20px; 
+            background-color: black;
+            border: 2px solid white; 
+            border-radius: 8px; 
+            font-family: 'Press Start 2P', monospace;
+            color: #DDDDDD; 
+            text-align: left;
+            box-shadow: 0 0 10px white;
+        }
+
+        #rules-box-simple p {
+            font-size: 10px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        /* --- STYLE DU BOUTON DE RETOUR (similaire au bouton #retour du jeu) --- */
+        #retour-rules {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px; 
+            color: white; 
+            position: absolute;
+            top: 100px;
+            left: 640px; 
+            width: 250px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid white;
+            background-color: #000;
+            z-index: 5;
+            cursor: pointer;
         }
 
     </style>
@@ -244,25 +294,41 @@
         <div class="quarter-circle3"></div>
         <div class="quarter-circle4"></div>
         <button onclick="showSection('jeu')" class="simon1"></button>
-        <button onclick="showSection('rules')" class="simon2">RULES</button>
+        <button onclick="showSection('rules')" class="simon2">REGLES</button>
         <button onclick="showSection('param')" class="simon3">PARAMETERES</button>
     </section>
     
     <section id="jeu">
-        <button id="retour" onclick="showSection('menu')">Return to Menu</button>
+        <button id="retour" onclick="showSection('menu')">RETOUR AU MENU</button>
     
         <div id="red-game" class="q1" data-color="red" onclick="handlePlayerClick('red')"></div>
         <div id="green-game" class="q2" data-color="green" onclick="handlePlayerClick('green')"></div>
         <div id="blue-game" class="qc3" data-color="blue" onclick="handlePlayerClick('blue')"></div>
         <div id="yellow-game" class="qc4" data-color="yellow" onclick="handlePlayerClick('yellow')"></div>
     
-        <button class="btn" id="game-center"></button>
+        <button class="btn" id="btn-game-center"></button>
     </section>
     
-    <section id="param">
+    <section id="rules">
+        <button id="retour-rules" onclick="showSection('menu')">RETOUR AU MENU</button>
 
-
+        <div id="rules-box-simple">
+            <h2 style="font-size: 24px; color: yellow; text-align: center;">REGLES SIMON</h2>
+            <hr style="border-color: white;">
+            
+            <p>
+                <span style="color: #00FF00; font-weight: bold;">OBJECTIF :</span> Répétez la séquence de couleurs de Simon.
+            </p>
+            <p>
+                <span style="color: #FF6600; font-weight: bold;">TOUR :</span> Simon ajoute une couleur à chaque tour.
+            </p>
+            <p>
+                <span style="color: red; font-weight: bold;">PERTE :</span> Une erreur met fin à la partie. Le score est le nombre de couleurs répétées.
+            </p>
+            
+        </div>
     </section>
+    
     <script src="test.js"></script>
 
 
