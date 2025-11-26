@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Simon Says Game</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <style>
-        .quarter-circle1{
-            width:170px;
-            height :170px;
+        /* Les classes quarter-circleX sont utilisées pour le menu (animation de pulsation). */
+        .quarter-circle1, .q1 {
+            width: 170px;
+            height: 170px;
             background-color: red;
-            color: red;
+            color: red; 
             border-top-left-radius: 150px;
             position: absolute;
             top: 150px;
@@ -16,22 +19,12 @@
             animation: pulse 2s infinite;
             animation-delay: 0s;
         }
-        .q1{
-            width:170px;
-            height :170px;
-            background-color: red;
-            color: red;
-            border-top-left-radius: 150px;
-            position: absolute;
-            top: 150px;
-            left: 600px;
-            box-shadow: 0 0 20px 5px red;
-        }
-        .quarter-circle2{
-            width:170px;
-            height :170px;
+
+        .quarter-circle2, .q2 {
+            width: 170px;
+            height: 170px;
             background-color: green;
-            color:green;
+            color: green;
             border-top-right-radius: 150px;
             position: absolute;
             top: 150px;
@@ -40,178 +33,172 @@
             animation: pulse 2s infinite;
             animation-delay: 0.5s;
         }
-        .q2{
-            width:170px;
-            height :170px;
-            background-color: green;
-            color:green;
-            border-top-right-radius: 150px;
-            position: absolute;
-            top: 150px;
-            left: 750px;
-            box-shadow: 0 0 20px 5px green;
-        }
         
-        .quarter-circle3{
-            width:170px;
-            height :170px;
-            background-color:blue;
+        .quarter-circle3, .qc3 {
+            width: 170px;
+            height: 170px;
+            background-color: blue;
             color: blue;
             border-bottom-left-radius: 150px;
             position: absolute;
             top: 300px;
-            left: 600px;box-shadow: 0 0 20px 5px ;
+            left: 600px;
             box-shadow: 0 0 20px 5px blue;
             animation: pulse 2s infinite;
             animation-delay: 1s;
         }
-        .qc3{
-            width:170px;
-            height :170px;
-            background-color:blue;
-            color: blue;
-            border-bottom-left-radius: 150px;
-            position: absolute;
-            top: 300px;
-            left: 600px;box-shadow: 0 0 20px 5px ;
-            box-shadow: 0 0 20px 5px blue;
-        }
         
-        .quarter-circle4{
-            width:170px;
-            height :170px;
+        .quarter-circle4, .qc4 {
+            width: 170px;
+            height: 170px;
             background-color: yellow;
             color: yellow;
             border-bottom-right-radius: 150px;
             position: absolute;
             top: 300px;
-            left: 750px;box-shadow: 0 0 20px 5px ;
+            left: 750px;
             box-shadow: 0 0 20px 5px yellow;
             animation: pulse 2s infinite;
             animation-delay: 1.5s;
         }
-        .qc4{
-            width:170px;
-            height :170px;
-            background-color: yellow;
-            color: yellow;
-            border-bottom-right-radius: 150px;
-            position: absolute;
-            top: 300px;
-            left: 750px;box-shadow: 0 0 20px 5px ;
-            box-shadow: 0 0 20px 5px yellow;
-        }
+
+        /* Animation de pulsation (pour le MENU) */
         @keyframes pulse {
-            0%, 100%{
-                box-shadow: 0 0 20px 5px currentColor;
+            0%, 100% {
+                box-shadow: 0 0 20px 5px currentColor; /* Utilise la couleur de fond/texte */
                 opacity: 1;
             }
-            50%{
+            50% {
                 box-shadow: 0 0 40px 20px currentColor;
-                opacity :0.8;
+                opacity: 0.8;
             }
         }
         
-        .simon1{
+        /* Classe ajoutée par JavaScript pour le 'flash' durant le jeu */
+        .active {
+            opacity: 1;
+            /* Ombre très intense pour le flash */
+            box-shadow: 0 0 60px 25px currentColor !important; 
+            opacity: 0.8;
+            /* Désactive l'animation de pulsation CSS par défaut durant le jeu */
+            animation: none !important; 
+            transition: box-shadow 0.05s; /* Rend le flash plus instantané */
+        }
+        
+        /* Appliquer le curseur cliquable uniquement dans la section jeu */
+        #jeu div[data-color] {
+            cursor: pointer;
+        }
+       
+        
+        .simon1 {
             color: aliceblue;
             width: 150px;
-            height:150px;
+            height: 150px;
             background-color: black;
             border-radius: 50%;
             position: absolute;
             top: 230px;
             left: 680px;
             font-family: 'Press Start 2P', monospace;
-            font-size: 20px; /* Pixel fonts often look best at specific, larger sizes */
+            font-size: 20px; 
             color: #FFFFFF;
             border: none;
             outline: none;
             cursor: pointer;
-        
+            
+            display: flex; /* Permet le centrage du texte ::before */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
         .simon1::before {
-            content: ' SIMON SAYS'; 
+            content: 'SIMON SAYS'; 
             color: aliceblue;
-            }
+            white-space: pre-wrap; /* Permet un retour à la ligne si vous ajoutez \n */
+        }
         .simon1:hover {
-             background-color: #FFFFFF; /* New background for the entire button */
-            }
+            background-color: #FFFFFF;
+        }
         .simon1:hover::before {
             content: 'START PLAYING'; 
             color: black;
-}
+        }
         
-        .simon2{
+
+        .simon2, .simon3 {
             font-family: 'Press Start 2P', monospace;
-            font-size: 24px; /* Pixel fonts often look best at specific, larger sizes */
+            font-size: 20px;
             color: #FFFFFF;
             width: 250px;
-            height:80px;
+            height: 80px;
             background-color: black;
             border-radius: 30px;
             position: absolute;
-            top: 520px;
             left: 630px;
             padding: 10px 15px;
-            border: none;
+            border: 2px solid white; /* Ajout d'une bordure pour un meilleur look rétro */
             outline: none;
             cursor: pointer;
+            transition: background-color 0.1s;
         }
-        .simon3{
-            font-family: 'Press Start 2P', monospace;
-            font-size: 20px; /* Pixel fonts often look best at specific, larger sizes */
-            color: #FFFFFF;
-            width: 250px;
-            height:80px;
-            border-radius: 30px;
-            background-color: black;
-            position: absolute;
-            top: 610px;
-            left: 630px;
-            border: none;
-            outline: none;
-            cursor: pointer;
+        .simon2 { top: 520px; }
+        .simon3 { top: 610px; }
+        .simon2:hover, .simon3:hover {
+            background-color: #333; 
         }
-        /* --- Classe pour le Flash (Ajoutée par JS) --- */
-        .active {
-            opacity: 1;
-            box-shadow: 0 0 60px 25px currentColor !important; /* Ombre très intense pour le flash */
-            opacity: 0.8;
-            animation: none !important; /* Désactive l'animation de pulsation par défaut */
-            transition: box-shadow 0.05s; /* Rend le flash plus instantané */
-        }
-/* Ajoutez les styles d'affichage pour le bouton central dans la section jeu */
-        #jeu .simon1 {
-            display: flex; /* Permet d'aligner le statut du jeu */
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        section { display: none; text-align: center; padding: 50px; }
-        #menu { display: block; }
-        .btn{
+
+        /* Le bouton central du jeu (#btn-game-center) qui affiche le statut/score */
+        .btn {
             color: aliceblue;
             width: 150px;
-            height:150px;
+            height: 150px;
             background-color: black;
             border-radius: 50%;
             position: absolute;
             top: 230px;
             left: 680px;
             font-family: 'Press Start 2P', monospace;
-            font-size: 20px; /* Pixel fonts often look best at specific, larger sizes */
+            font-size: 20px;
             color: #FFFFFF;
             border: none;
             outline: none;
+            cursor: default; /* Pas cliquable pour démarrer, géré par JS */
+            
+            /* Styles Flexbox pour centrer le texte du statut */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* Style pour s'assurer que le contenu généré par JS est centré */
+        #btn-game-center, #Center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer; 
         }
 
-        /* --- Style du Scoreboard --- */
+        section { 
+            display: none; 
+            text-align: center; 
+            padding: 0px; 
+        }
+        #menu { 
+            display: block; 
+        }
+
+        /* Style du Scoreboard (Meilleur Score) */
         #best-score-display {
             font-family: 'Press Start 2P', monospace;
-            font-size: 10px; 
-            color:white; /* Vert pour le contraste et le style rétro */
+            font-size: 10px;
+            color: white; 
             position: absolute;
-            top: 90px; /* Positionnement au-dessus du jeu/menu central */
+            top: 90px;
             left: 620px; 
             width: 250px;
             text-align: center;
@@ -219,13 +206,14 @@
             border: 2px solid white;
             background-color: #000;
             z-index: 5;
-}
-        #retour {
+        }
+
+        #retour, #retour-rules {
             font-family: 'Press Start 2P', monospace;
-            font-size: 10px; 
-            color:white; /* Vert pour le contraste et le style rétro */
+            font-size: 10px;
+            color: white;
             position: absolute;
-            top: 90px; /* Positionnement au-dessus du jeu/menu central */
+            top: 90px;
             left: 630px; 
             width: 250px;
             text-align: center;
@@ -233,26 +221,28 @@
             border: 2px solid white;
             background-color: #000;
             z-index: 5;
-            cursor:pointer;
-
-
+            cursor: pointer;
         }
-        /* --- STYLE DE POSITIONNEMENT GÉNÉRAL --- */
-        #rules {
-            /* Maintient le conteneur actif */
+        /* Ajustement léger de position pour le bouton de retour des règles/paramètres */
+        #retour-rules {
+            top: 100px; 
+            left: 640px; 
+            width: 250px; 
+        }
+
+        /* Styles de la boîte de Règles et Paramètres */
+        #rules, #param {
             display: flex;
             justify-content: center;
             align-items: flex-start;
             height: 100vh;
         }
-
-/* --- STYLE DE LA BOÎTE DE RÈGLES --- */
-        #rules-box-simple ,#param-box {
+        #rules-box-simple, #param-box {
             position: absolute; 
             top: 200px;
             font-size: medium;
-            left: 565px; /* Ajusté pour centrer une boîte plus petite */
-            width: 350px; /* Réduit la largeur */
+            left: 565px; 
+            width: 350px; 
             padding: 20px; 
             background-color: black;
             border: 2px solid white; 
@@ -263,71 +253,32 @@
             box-shadow: 0 0 10px white;
         }
 
+        /* Styles du texte à l'intérieur de la boîte de règles */
         #rules-box-simple p {
             font-size: 10px;
             line-height: 1.5;
             margin: 10px 0;
         }
-
-        /* --- STYLE DU BOUTON DE RETOUR (similaire au bouton #retour du jeu) --- */
-        #retour-rules {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 10px; 
-            color: white; 
-            position: absolute;
-            top: 100px;
-            left: 640px; 
-            width: 250px;
-            text-align: center;
-            padding: 10px;
-            border: 2px solid white;
-            background-color: #000;
-            z-index: 5;
-            cursor: pointer;
-        }
-        #retour-rules { top: 100px; left: 640px; }
-        .active {
-            opacity: 1;
-            box-shadow: 0 0 60px 25px currentColor !important;
-            opacity: 0.8;
-            animation: none !important;
-            transition: box-shadow 0.05s;
-        }
         
-        #btn-game-center, #Center { /* Cibler les deux pour la sécurité */
-            display: flex;             /* Active Flexbox */
-            flex-direction: column;    /* Empile les enfants (statusDisplay et roundInfo) verticalement */
-            justify-content: center;   /* Centre verticalement dans le bouton */
-            align-items: center;       /* Centre horizontalement dans le bouton */
-            text-align: center;
-            cursor: pointer;
-        }
-        #param {
-        /* Style général de section pour le centrage */
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        height: 100vh;
-    }
-
     </style>
 </head>
 <body style="background-image: url(vector-black-future.jpg);">
-    <section id="menu" >
+    
+    <section id="menu">
         <div id="best-score-display">MEILLEUR SCORE: 0</div>
         <div class="quarter-circle1"></div>
         <div class="quarter-circle2"></div>
         <div class="quarter-circle3"></div>
         <div class="quarter-circle4"></div>
+        
         <button onclick="showSection('jeu')" class="simon1"></button>
         <button onclick="showSection('rules')" class="simon2">REGLES</button>
         <button onclick="showSection('param')" class="simon3">PARAMETRES</button>
     </section>
     
     <section id="jeu">
-<button id="retour" onclick="showSection('menu')">RETOUR AU MENU</button>
-
-<button id="retour" onclick="gameOver(true); showSection('menu');">RETOUR AU MENU</button>    
+        <button id="retour" onclick="gameOver(true); showSection('menu');">RETOUR AU MENU</button> 
+        
         <div id="red-game" class="q1" data-color="red" onclick="handlePlayerClick('red')"></div>
         <div id="green-game" class="q2" data-color="green" onclick="handlePlayerClick('green')"></div>
         <div id="blue-game" class="qc3" data-color="blue" onclick="handlePlayerClick('blue')"></div>
@@ -343,19 +294,11 @@
             <h2 style="font-size: 24px; color: yellow; text-align: center;">REGLES SIMON</h2>
             <hr style="border-color: white;">
             
-            <p>
-                <span style="color: #00FF00; font-weight: bold;">OBJECTIF :</span> Répétez la séquence de couleurs de Simon.
-            </p>
-            <p>
-                <span style="color: #FF6600; font-weight: bold;">TOUR :</span> Simon ajoute une couleur à chaque tour.
-            </p>
-            <p>
-                <span style="color: red; font-weight: bold;">PERTE :</span> Une erreur met fin à la partie. Le score est le nombre de couleurs répétées.
-            </p>
-            
+            <p><span style="color: #00FF00; font-weight: bold;">OBJECTIF :</span> Répétez la séquence de couleurs de Simon.</p>
+            <p><span style="color: #FF6600; font-weight: bold;">TOUR :</span> Simon ajoute une couleur à chaque tour.</p>
+            <p><span style="color: red; font-weight: bold;">PERTE :</span> Une erreur met fin à la partie. Le score est le nombre de couleurs répétées.</p>
         </div>
     </section>
-    
     
     <section id="param">
         <button id="retour-rules" onclick="showSection('menu')">RETOUR AU MENU</button>
@@ -366,320 +309,292 @@
             
             <label for="flashDurationInput">Durée du Flash (Vitesse) : <span id="flashDurationValue">350</span> ms</label>
             <input type="range" id="flashDurationInput" min="100" max="600" value="350" step="50" 
-                   oninput="updateParams('flashDuration', this.value)">
-            <p style="text-align: center; margin-top: 5px;">(100 ms=Rapide /600 ms =Lent)</p>
+                    oninput="updateParams('flashDuration', this.value)">
+            <p style="text-align: center; margin-top: 5px;">(100 ms = Rapide / 600 ms = Lent)</p>
 
             <label for="intervalInput">Délai entre Couleurs:<span id="intervalValue">550</span> ms</label>
             <input type="range" id="intervalInput" min="400" max="1000" value="550" step="50"
-                   oninput="updateParams('interval', this.value)">
+                    oninput="updateParams('interval', this.value)">
             <p style="text-align: center; margin-top: 5px;">(400 ms = Séquence Rapide / 1000 ms = Lente)</p>
         </div>
     </section>
     
-    <script >
+    <script>
         // --- VARIABLES GLOBALES DU JEU ---
-const COLORS = ['red', 'green', 'blue', 'yellow'];
+        const COLORS = ['red', 'green', 'blue', 'yellow'];
+        const LOCAL_STORAGE_KEY = 'simonSaysBestScore'; 
 
-const gameSequence = [];
-let playerSequence = [];
-let round = 1;
-let isPlayerTurn = false;
-let gameActive = false;
+        let gameSequence = [];
+        let playerSequence = [];
+        let round = 1;
+        let isPlayerTurn = false;
+        let gameActive = false; // Vrai si une partie est en cours
 
-// Constantes d'animation
-let FLASH_DURATION = 350; // Durée du flash lors de la démo
-let INTERVAL = 550;       // Délai entre le début de deux flashes
+        // Paramètres de vitesse par défaut (peuvent être ajustés via l'interface)
+        let FLASH_DURATION = 350; // Durée du flash
+        let INTERVAL = 550;       // Délai entre le début de deux flashes
 
-// --- ÉLÉMENTS DOM ---
+        // --- ÉLÉMENTS DOM et AUDIO ---
 
-
-
-const Center = document.getElementById('btn-game-center');
-const audioMap = {
-    'red': new Audio('do.mp3'),
-    'green': new Audio('re.mp3'),
-    'blue': new Audio('mi.mp3'),
-    'yellow': new Audio('fa.mp3')
-};
-// Création des éléments d'affichage de statut (similaire à la version précédente pour un affichage centré)
-let statusDisplay = document.createElement('span');
-statusDisplay.id = 'game-status';
-statusDisplay.style.fontSize = '14px';
-statusDisplay.style.fontFamily = "'Press Start 2P', monospace"; // Assurez le style
-statusDisplay.textContent = "SIMON SAYS";
-
-let roundInfo = document.createElement('span');
-roundInfo.id = 'round-info';
-roundInfo.style.fontSize = '10px';
-roundInfo.style.marginTop = '5px';
-roundInfo.style.fontFamily = "'Press Start 2P', monospace"; // Assurez le style
-roundInfo.textContent = "Tour 0";
-
-// Remplacer le contenu du bouton central par les affichages du statut
-if (Center) {
-    Center.innerHTML = '';
-    Center.appendChild(statusDisplay);
-    Center.appendChild(roundInfo);
-}
-
-// Map des éléments du jeu (utilisant les IDs ajoutés au HTML)
-const allQuadrants = {
-    'red': document.getElementById('red-game'),
-    'green': document.getElementById('green-game'),
-    'blue': document.getElementById('blue-game'),
-    'yellow': document.getElementById('yellow-game')
-};
-
-// --- FONCTIONS DE NAVIGATION ---
-
-function showSection(id) {
-    document.querySelectorAll('section').forEach(section => {
-        section.style.display = 'none';
-    });
-    const targetSection = document.getElementById(id);
-    if (targetSection) {
-        targetSection.style.display = 'block';
-    }
-    
-    // Démarre le jeu si on entre dans la section 'jeu'
-    if (id === 'menu') {
-        displayBestScore();
-    }
-    else if (id === 'jeu') {
-        startGame();
-        } else if (id === 'param') {
-        syncParamSliders(); // Synchroniser lors de l'ouverture des paramètres
-    
-}
-}
-function updateParams(paramName, value) {
-    const numericValue = parseInt(value, 10);
-    
-    if (paramName === 'flashDuration') {
-        FLASH_DURATION = numericValue;
-        document.getElementById('flashDurationValue').textContent = numericValue;
-    } else if (paramName === 'interval') {
-        INTERVAL = numericValue;
-        document.getElementById('intervalValue').textContent = numericValue;
-    }
-}
-function syncParamSliders() {
-    // Cela garantit que lorsque l'utilisateur accède aux paramètres, les sliders
-    // correspondent aux valeurs actuellement utilisées.
-    const flashInput = document.getElementById('flashDurationInput');
-    const intervalInput = document.getElementById('intervalInput');
-    
-    if (flashInput) {
-        flashInput.value = FLASH_DURATION;
-        document.getElementById('flashDurationValue').textContent = FLASH_DURATION;
-    }
-    if (intervalInput) {
-        intervalInput.value = INTERVAL;
-        document.getElementById('intervalValue').textContent = INTERVAL;
-    }
-}
-
-
-// --- LOGIQUE D'ANIMATION ET DE JEU ---
-
-/** Fait clignoter un quadrant spécifique. */
-function flashColor(colorId, duration) {
-    const element = allQuadrants[colorId];
-    const audio = audioMap[colorId];
-    if (audio) {
-        // Optionnel : Réinitialiser et jouer pour éviter les délais si le son est rejoué rapidement
-        audio.currentTime = 0; 
-        audio.play().catch(e => console.error("Erreur lecture audio:", e)); // Utiliser catch pour éviter les erreurs de lecture automatique non initiée par l'utilisateur
-    }
-    if (element) {
-        element.classList.add('active'); 
-        setTimeout(() => {
-            element.classList.remove('active');
-        }, duration); 
-    }
-}
-
-/** Désactive l'animation de pulsation CSS infinie au début du jeu. */
-function disablePulseAnimation() {
-    Object.values(allQuadrants).forEach(element => {
-        if (element) {
-            element.style.animation = 'none'; // Désactive l'animation
-            element.style.boxShadow = element.style.boxShadow.replace('20px 5px', '10px 3px'); // Fixe une ombre plus discrète
-        }
-    });
-}
-
-/** Affiche la séquence de couleurs au joueur. */
-function showSequence(sequence) {
-    isPlayerTurn = false; 
-    statusDisplay.textContent = "WATCH!";
-
-    let delay = 0;
-
-    sequence.forEach((colorId, index) => {
-        setTimeout(() => {
-            flashColor(colorId, FLASH_DURATION);
-            
-            if (index === sequence.length - 1) {
-                setTimeout(startPlayerTurn, INTERVAL); // Commencer le tour du joueur après le dernier flash
-            }
-        }, delay);
+        const Center = document.getElementById('btn-game-center');
+        const audioMap = {
+            // Remplacez les chemins d'accès par ceux de vos fichiers audio (do.mp3, re.mp3, etc.)
+            'red': new Audio('do.mp3'),
+            'green': new Audio('re.mp3'),
+            'blue': new Audio('mi.mp3'),
+            'yellow': new Audio('fa.mp3')
+        };
         
-        delay += INTERVAL;
-    });
-}
-
-/** Démarre le tour du joueur. */
-function startPlayerTurn() {
-    isPlayerTurn = true;
-    statusDisplay.textContent = 'Votre tour!';
-    const requiredClicks = gameSequence.length;
-    let clickWord = (requiredClicks > 1) ? 'Clicks' : 'Click'; 
-    
-    // Mise à jour de l'affichage
-    roundInfo.textContent = ` Répetez  ${requiredClicks} ${clickWord}`;
-}
-
-/** Gère le clic du joueur sur un quadrant. */
-window.handlePlayerClick = function(clickedColor) {
-    if (!isPlayerTurn || !gameActive) return;
-
-    flashColor(clickedColor, 150); // Flash court lors du clic
-    playerSequence.push(clickedColor);
-    
-    checkPlayerInput();
-}
-
-/** Vérifie si la séquence du joueur correspond. */
-function checkPlayerInput() {
-    const lastIndex = playerSequence.length - 1;
-    
-    if (playerSequence[lastIndex] !== gameSequence[lastIndex]) {
-        gameOver(false); // Séquence incorrecte
-        return;
-    }
-
-    if (playerSequence.length === gameSequence.length) {
-        // SUCCÈS : Le joueur a réussi le tour
-        statusDisplay.textContent = 'BIEN!';
-        isPlayerTurn = false;
-        roundInfo.textContent='';
-        round++; // Incrémenter le round
-        
-        setTimeout(nextRound, 1500); // Lancer le prochain tour
-    }
-}
-
-/** Prépare et démarre le tour suivant (incrémentation de la séquence). */
-function nextRound() {
-    if (!gameActive) return;
-
-    playerSequence.length = 0;
-    
-    roundInfo.textContent = ` Tour ${round} `;
-    
-    // AJOUT: Nouvelle couleur pour rendre la séquence croissante
-    const nextColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-    gameSequence.push(nextColor);
-    
-    showSequence(gameSequence);
-}
-
-/** Initialise et commence le jeu. */
-function startGame() {
-    gameActive = true;
-    round = 1; 
-    gameSequence.length = 0;
-    playerSequence.length = 0;
-    
-    disablePulseAnimation(); 
-    setTimeout(nextRound, 1000);
-}
-// --- VARIABLES GLOBALES DU JEU ---
-// ... (vos variables existantes) ...
-const LOCAL_STORAGE_KEY = 'simonSaysBestScore'; // Clé pour localStorage
-
-// --- NOUVELLES FONCTIONS DE GESTION DU SCORE ---
-
-/**
- * Récupère le meilleur score local stocké.
- * @returns {number} Le meilleur score ou 0 si aucun score n'est trouvé.
- */
-function getBestScore() {
-    const score = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return score ? parseInt(score, 10) : 0;
-}
-
-/**
- * Met à jour le meilleur score local si le score actuel est supérieur.
- * @param {number} newScore Le score que le joueur vient d'atteindre (round - 1).
- */
-function updateBestScore(newScore) {
-    const currentBest = getBestScore();
-    if (newScore > currentBest) {
-        localStorage.setItem(LOCAL_STORAGE_KEY, newScore.toString());
-        return true; // Nouveau record
-    }
-    return false; // Pas de nouveau record
-}
-
-/**
- * Met à jour l'affichage du meilleur score dans le menu.
- */
-function displayBestScore() {
-    const bestScoreElement = document.getElementById('best-score-display');
-    const bestScore = getBestScore();
-    if (bestScoreElement) {
-        bestScoreElement.textContent = `Best Score: ${bestScore}`;
-    }
-}
-/** Fin de la partie. */
-/** Fin de la partie. */
-function gameOver(isQuit) {
-    gameActive = false;
-    isPlayerTurn = false;
-    
-    // Le score est le round précédent
-    const finalScore = round - 1; 
-
-    if (!isQuit) {
-         statusDisplay.textContent = 'Game Over! \n';
-         roundInfo.textContent = `Score: ${finalScore}`;
-
-         // Vérifier et mettre à jour le meilleur score
-         const isNewRecord = updateBestScore(finalScore);
-
-         let alertMessage = `Game Over! Score: ${finalScore}.`;
-         if (isNewRecord) {
-             alertMessage += "\nNOUVEAU SCORE LOCAL ! 🏆";
-         }
-         
-         setTimeout(() => {
-             alert(alertMessage);
-             showSection('menu');
-             // S'assurer que le menu affiche le nouveau record
-             displayBestScore(); 
-         }, 100);
-    }
-    // Si on quitte le jeu manuellement, on met à jour le menu pour l'affichage
-    if (isQuit) {
-        gameSequence.length = 0;
-        playerSequence.length = 0;
-        round = 1;
+        // Création des éléments d'affichage de statut dans le bouton central
+        let statusDisplay = document.createElement('span');
+        statusDisplay.id = 'game-status';
+        statusDisplay.style.fontSize = '14px';
+        statusDisplay.style.fontFamily = "'Press Start 2P', monospace"; 
         statusDisplay.textContent = "SIMON SAYS";
+
+        let roundInfo = document.createElement('span');
+        roundInfo.id = 'round-info';
+        roundInfo.style.fontSize = '10px';
+        roundInfo.style.marginTop = '5px';
+        roundInfo.style.fontFamily = "'Press Start 2P', monospace";
         roundInfo.textContent = "Tour 0";
 
-        // Nettoyer les séquences pour un nouveau départ (bien que startGame le fasse aussi)
-        
-        displayBestScore();
-    }
-}
+        // Insertion des affichages dans le bouton central
+        if (Center) {
+            Center.innerHTML = '';
+            Center.appendChild(statusDisplay);
+            Center.appendChild(roundInfo);
+        }
 
-// Exécuté au chargement : Initialisation de la section
-showSection('menu');
+        // Map des éléments du jeu pour un accès facile
+        const allQuadrants = {
+            'red': document.getElementById('red-game'),
+            'green': document.getElementById('green-game'),
+            'blue': document.getElementById('blue-game'),
+            'yellow': document.getElementById('yellow-game')
+        };
+
+
+        /** Affiche la section demandée et gère les actions de transition (démarrage/score). */
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            const targetSection = document.getElementById(id);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+            
+            if (id === 'menu') {
+                displayBestScore();
+            } else if (id === 'jeu') {
+                startGame(); 
+            } else if (id === 'param') {
+                syncParamSliders();
+            }
+        }
+        
+        function updateParams(paramName, value) {
+            const numericValue = parseInt(value, 10);
+            
+            if (paramName === 'flashDuration') {
+                FLASH_DURATION = numericValue;
+                document.getElementById('flashDurationValue').textContent = numericValue;
+            } else if (paramName === 'interval') {
+                INTERVAL = numericValue;
+                document.getElementById('intervalValue').textContent = numericValue;
+            }
+        }
+        
+        function syncParamSliders() {
+            const flashInput = document.getElementById('flashDurationInput');
+            const intervalInput = document.getElementById('intervalInput');
+            
+            if (flashInput) {
+                flashInput.value = FLASH_DURATION;
+                document.getElementById('flashDurationValue').textContent = FLASH_DURATION;
+            }
+            if (intervalInput) {
+                intervalInput.value = INTERVAL;
+                document.getElementById('intervalValue').textContent = INTERVAL;
+            }
+        }
+
+        // --- GESTION DU SCORE ---
+
+        /** Récupère le meilleur score stocké dans le localStorage. */
+        function getBestScore() {
+            const score = localStorage.getItem(LOCAL_STORAGE_KEY); // Retourne l'entier stocké ou 0 si rien n'est trouvé
+            return score ? parseInt(score, 10) : 0; 
+        }
+        /** Met à jour le meilleur score local si le nouveau score est supérieur. */
+        function updateBestScore(newScore) {
+            const currentBest = getBestScore();
+            if (newScore > currentBest) {
+                localStorage.setItem(LOCAL_STORAGE_KEY, newScore.toString());
+                return true; // Nouveau record
+            }
+            return false; // Pas de nouveau record
+        }
+        /** Met à jour l'affichage du meilleur score dans le menu. */
+        function displayBestScore() {
+            const bestScoreElement = document.getElementById('best-score-display');
+            const bestScore = getBestScore();
+            if (bestScoreElement) {
+                bestScoreElement.textContent = `MEILLEUR SCORE: ${bestScore}`;
+            }
+        }
+        /** Fait clignoter un quadrant spécifique et joue le son associé. */
+        function flashColor(colorId, duration) {
+            const element = allQuadrants[colorId];
+            const audio = audioMap[colorId];
+
+            if (audio) {
+                // Réinitialiser la lecture pour un son rapide
+                audio.currentTime = 0; 
+                audio.play().catch(e => console.error("Erreur lecture audio:", e));
+            }
+            if (element) {
+                element.classList.add('active'); 
+                // Retire la classe 'active' après la durée spécifiée
+                setTimeout(() => {
+                    element.classList.remove('active');
+                }, duration); 
+            }
+        }
+
+        /** Désactive l'animation de pulsation CSS infinie des quartiers de cercle au début du jeu. */
+        function disablePulseAnimation() {
+            Object.values(allQuadrants).forEach(element => {
+                if (element) {
+                    element.style.animation = 'none'; 
+                    // Remplace le box-shadow animé par une ombre fixe
+                    element.style.boxShadow = element.style.boxShadow.replace('20px 5px', '10px 3px'); 
+                }
+            });
+        }
+
+        /** Affiche la séquence de couleurs (démonstration Simon) au joueur. */
+        function showSequence(sequence) {
+            isPlayerTurn = false; 
+            statusDisplay.textContent = "WATCH!";
+
+            let delay = 0;
+
+            sequence.forEach((colorId, index) => {
+                setTimeout(() => {
+                    flashColor(colorId, FLASH_DURATION);
+                    
+                    // Une fois le dernier flash terminé, on donne la main au joueur
+                    if (index === sequence.length - 1) {
+                        setTimeout(startPlayerTurn, INTERVAL + FLASH_DURATION + 50); // Délai après le dernier flash
+                    }
+                }, delay);
+                
+                delay += INTERVAL; // Ajoute l'intervalle pour le prochain flash
+            });
+        }
+        /** Démarre le tour du joueur (active les clics). */
+        function startPlayerTurn() {
+            isPlayerTurn = true;
+            statusDisplay.textContent = 'Votre tour!';
+            const requiredClicks = gameSequence.length;
+            const clickWord = (requiredClicks > 1) ? 'Clicks' : 'Click'; 
+            
+            roundInfo.textContent = `Répetez ${requiredClicks} ${clickWord}`;
+        }
+        /** Gère le clic du joueur sur un quadrant. (Fonction globale pour le HTML onclick) */
+        window.handlePlayerClick = function(clickedColor) {
+            if (!isPlayerTurn || !gameActive) return; // Ignore si ce n'est pas le tour du joueur
+
+            flashColor(clickedColor, 150); // Flash court lors du clic
+            playerSequence.push(clickedColor);
+            
+            checkPlayerInput(); // Vérifie la validité du clic
+        }
+
+        /** Vérifie si la séquence du joueur correspond à la séquence de Simon. */
+        function checkPlayerInput() {
+            const lastIndex = playerSequence.length - 1;
+            
+            // 1. Vérifie si le dernier clic est correct
+            if (playerSequence[lastIndex] !== gameSequence[lastIndex]) {
+                gameOver(false); // Séquence incorrecte, fin de partie
+                return;
+            }
+
+            // 2. Vérifie si la séquence complète a été répétée
+            if (playerSequence.length === gameSequence.length) {
+                statusDisplay.textContent = 'BIEN!';
+                isPlayerTurn = false;
+                roundInfo.textContent = '';
+                round++; // Incrémenter le round
+                
+                setTimeout(nextRound, 1500); // Lancer le prochain tour après un délai
+            }
+        }
+
+        /** Prépare et démarre le tour suivant. */
+        function nextRound() {
+            if (!gameActive) return;
+
+            playerSequence.length = 0; // Réinitialise la séquence du joueur
+            
+            roundInfo.textContent = ` Tour ${round} `;
+            
+            // AJOUT: Nouvelle couleur aléatoire pour étendre la séquence
+            const nextColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+            gameSequence.push(nextColor);
+            
+            showSequence(gameSequence); // Affiche la nouvelle séquence
+        }
+
+        /** Initialise et commence le jeu. */
+        function startGame() {
+            gameActive = true;
+            round = 1; 
+            gameSequence.length = 0;
+            playerSequence.length = 0;
+            
+            disablePulseAnimation(); // Arrête l'animation du menu
+            setTimeout(nextRound, 1000); // Démarre le premier round après un délai
+        }
+        /** Fin de la partie (par erreur ou par abandon). */
+        function gameOver(isQuit) {
+            gameActive = false;
+            isPlayerTurn = false;
+            
+            // Le score est la longueur de la séquence précédente
+            const finalScore = round - 1; 
+
+            if (!isQuit) {
+                statusDisplay.textContent = 'Game Over! \n';
+                roundInfo.textContent = `Score: ${finalScore}`;
+
+                const isNewRecord = updateBestScore(finalScore);
+
+                let alertMessage = `Game Over! Score: ${finalScore}.`;
+                if (isNewRecord) {
+                    alertMessage += "\nNOUVEAU SCORE LOCAL ! 🏆";
+                }
+                
+                // Utiliser setTimeout pour s'assurer que l'affichage est mis à jour avant l'alerte
+                setTimeout(() => {
+                    alert(alertMessage);
+                    showSection('menu');
+                }, 100);
+            }
+            // Réinitialisation des variables de jeu (utilisée après Game Over ou Quitter)
+            gameSequence.length = 0;
+            playerSequence.length = 0;
+            round = 1;
+            statusDisplay.textContent = "SIMON SAYS";
+            roundInfo.textContent = "Tour 0";
+            displayBestScore();
+        }
+        // Exécuté au chargement : Affiche le menu initial
+        showSection('menu');
 
     </script>
-
-
 </body>
 </html>
