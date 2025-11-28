@@ -2,66 +2,70 @@
 <html>
 <head>
     <title>Simon Says Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <style>
-        /* --- STYLES DE BASE (NON-RESPONSIVE, POUR GRAND ÉCRAN) --- */
-
-        body {
-            /* Utilisation d'un fond d'image (assurez-vous que le fichier existe) */
-            background-image: url(vector-black-future.jpg);
-            background-size: cover;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-
-        /* Les classes quarter-circleX et qX sont utilisées pour le menu et le jeu */
+        /* Les classes quarter-circleX sont utilisées pour le menu (animation de pulsation). */
         .quarter-circle1, .q1 {
-            width: 170px; height: 170px;
-            background-color: red; color: red; 
+            width: 170px;
+            height: 170px;
+            background-color: red;
+            color: red; 
             border-top-left-radius: 150px;
             position: absolute;
-            top: 150px; left: 600px;
+            top: 150px;
+            left: 600px;
             box-shadow: 0 0 20px 5px red;
-            animation: pulse 2s infinite; animation-delay: 0s;
+            animation: pulse 2s infinite;
+            animation-delay: 0s;
         }
 
         .quarter-circle2, .q2 {
-            width: 170px; height: 170px;
-            background-color: green; color: green;
+            width: 170px;
+            height: 170px;
+            background-color: green;
+            color: green;
             border-top-right-radius: 150px;
             position: absolute;
-            top: 150px; left: 750px;
+            top: 150px;
+            left: 750px;
             box-shadow: 0 0 20px 5px green;
-            animation: pulse 2s infinite; animation-delay: 0.5s;
+            animation: pulse 2s infinite;
+            animation-delay: 0.5s;
         }
         
         .quarter-circle3, .qc3 {
-            width: 170px; height: 170px;
-            background-color: blue; color: blue;
+            width: 170px;
+            height: 170px;
+            background-color: blue;
+            color: blue;
             border-bottom-left-radius: 150px;
             position: absolute;
-            top: 300px; left: 600px;
+            top: 300px;
+            left: 600px;
             box-shadow: 0 0 20px 5px blue;
-            animation: pulse 2s infinite; animation-delay: 1s;
+            animation: pulse 2s infinite;
+            animation-delay: 1s;
         }
         
         .quarter-circle4, .qc4 {
-            width: 170px; height: 170px;
-            background-color: yellow; color: yellow;
+            width: 170px;
+            height: 170px;
+            background-color: yellow;
+            color: yellow;
             border-bottom-right-radius: 150px;
             position: absolute;
-            top: 300px; left: 750px;
+            top: 300px;
+            left: 750px;
             box-shadow: 0 0 20px 5px yellow;
-            animation: pulse 2s infinite; animation-delay: 1.5s;
+            animation: pulse 2s infinite;
+            animation-delay: 1.5s;
         }
 
         /* Animation de pulsation (pour le MENU) */
         @keyframes pulse {
             0%, 100% {
-                box-shadow: 0 0 20px 5px currentColor;
+                box-shadow: 0 0 20px 5px currentColor; /* Utilise la couleur de fond/texte */
                 opacity: 1;
             }
             50% {
@@ -73,160 +77,189 @@
         /* Classe ajoutée par JavaScript pour le 'flash' durant le jeu */
         .active {
             opacity: 1;
+            /* Ombre très intense pour le flash */
             box-shadow: 0 0 60px 25px currentColor !important; 
             opacity: 0.8;
+            /* Désactive l'animation de pulsation CSS par défaut durant le jeu */
             animation: none !important; 
-            transition: box-shadow 0.05s;
+            transition: box-shadow 0.05s; /* Rend le flash plus instantané */
         }
         
         /* Appliquer le curseur cliquable uniquement dans la section jeu */
         #jeu div[data-color] {
             cursor: pointer;
         }
+       
         
-        /* Style du Bouton Central du Menu (#simon1) */
         .simon1 {
-            color: aliceblue; width: 150px; height: 150px;
-            background-color: black; border-radius: 50%;
-            position: absolute; top: 230px; left: 680px;
+            color: aliceblue;
+            width: 150px;
+            height: 150px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 230px;
+            left: 680px;
             font-family: 'Press Start 2P', monospace;
-            font-size: 20px; color: #FFFFFF; border: none; outline: none; cursor: pointer;
-            display: flex; justify-content: center; align-items: center; text-align: center;
+            font-size: 20px; 
+            color: #FFFFFF;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            
+            display: flex; /* Permet le centrage du texte ::before */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
         .simon1::before {
             content: 'SIMON SAYS'; 
-            color: aliceblue; white-space: pre-wrap;
+            color: aliceblue;
+            white-space: pre-wrap; /* Permet un retour à la ligne si vous ajoutez \n */
         }
-        .simon1:hover { background-color: #FFFFFF; }
-        .simon1:hover::before { content: 'START PLAYING'; color: black; }
+        .simon1:hover {
+            background-color: #FFFFFF;
+        }
+        .simon1:hover::before {
+            content: 'START PLAYING'; 
+            color: black;
+        }
         
-        /* Styles des boutons de Menu (Règles/Paramètres) */
+
         .simon2, .simon3 {
-            font-family: 'Press Start 2P', monospace; font-size: 20px;
-            color: #FFFFFF; width: 250px; height: 80px;
-            background-color: black; border-radius: 30px;
-            position: absolute; left: 630px;
-            padding: 10px 15px; border: 2px solid white; outline: none;
-            cursor: pointer; transition: background-color 0.1s;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px;
+            color: #FFFFFF;
+            width: 250px;
+            height: 80px;
+            background-color: black;
+            border-radius: 30px;
+            position: absolute;
+            left: 630px;
+            padding: 10px 15px;
+            border: 2px solid white; /* Ajout d'une bordure pour un meilleur look rétro */
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.1s;
         }
         .simon2 { top: 520px; }
         .simon3 { top: 610px; }
-        .simon2:hover, .simon3:hover { background-color: #333; }
+        .simon2:hover, .simon3:hover {
+            background-color: #333; 
+        }
 
         /* Le bouton central du jeu (#btn-game-center) qui affiche le statut/score */
         .btn {
-            color: aliceblue; width: 150px; height: 150px;
-            background-color: black; border-radius: 50%;
-            position: absolute; top: 230px; left: 680px;
-            font-family: 'Press Start 2P', monospace; font-size: 20px;
-            color: #FFFFFF; border: none; outline: none; cursor: default;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            color: aliceblue;
+            width: 150px;
+            height: 150px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 230px;
+            left: 680px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 20px;
+            color: #FFFFFF;
+            border: none;
+            outline: none;
+            cursor: default; /* Pas cliquable pour démarrer, géré par JS */
+            
+            /* Styles Flexbox pour centrer le texte du statut */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
+        
+        /* Style pour s'assurer que le contenu généré par JS est centré */
         #btn-game-center, #Center {
-            display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-align: center; cursor: default; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer; 
         }
 
-        /* Gestion de l'affichage des sections */
         section { 
-            display: none; text-align: center; padding: 0px; 
-            position: relative; /* Base pour le positionnement mobile */
-            padding-top: 10px;
+            display: none; 
+            text-align: center; 
+            padding: 0px; 
         }
         #menu { 
             display: block; 
         }
 
-        /* Style du Scoreboard et du bouton RETOUR */
-        #best-score-display, #retour, #retour-rules {
-            font-family: 'Press Start 2P', monospace; font-size: 10px; color: white; 
-            position: absolute; top: 90px; left: 620px; width: 250px; text-align: center;
-            padding: 10px; border: 2px solid white; background-color: #000; z-index: 5;
+        /* Style du Scoreboard (Meilleur Score) */
+        #best-score-display {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            color: white; 
+            position: absolute;
+            top: 90px;
+            left: 620px; 
+            width: 250px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid white;
+            background-color: #000;
+            z-index: 5;
+        }
+
+        #retour, #retour-rules {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            color: white;
+            position: absolute;
+            top: 90px;
+            left: 630px; 
+            width: 250px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid white;
+            background-color: #000;
+            z-index: 5;
             cursor: pointer;
         }
-        #retour { left: 630px; }
-        #retour-rules { top: 100px; left: 640px; }
+        /* Ajustement léger de position pour le bouton de retour des règles/paramètres */
+        #retour-rules {
+            top: 100px; 
+            left: 640px; 
+            width: 250px; 
+        }
 
         /* Styles de la boîte de Règles et Paramètres */
         #rules, #param {
-            /* Retire le flex et le height: 100vh pour le grand écran */
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
         }
         #rules-box-simple, #param-box {
-            position: absolute; top: 200px; font-size: medium; left: 565px; 
-            width: 350px; padding: 20px; background-color: black;
-            border: 2px solid white; border-radius: 8px; 
-            font-family: 'Press Start 2P', monospace; color: #DDDDDD; 
-            text-align: left; box-shadow: 0 0 10px white;
+            position: absolute; 
+            top: 200px;
+            font-size: medium;
+            left: 565px; 
+            width: 350px; 
+            padding: 20px; 
+            background-color: black;
+            border: 2px solid white; 
+            border-radius: 8px; 
+            font-family: 'Press Start 2P', monospace;
+            color: #DDDDDD; 
+            text-align: left;
+            box-shadow: 0 0 10px white;
         }
+
+        /* Styles du texte à l'intérieur de la boîte de règles */
         #rules-box-simple p {
-            font-size: 10px; line-height: 1.5; margin: 10px 0;
+            font-size: 10px;
+            line-height: 1.5;
+            margin: 10px 0;
         }
-
-        /* --- 2. MEDIA QUERY POUR LES ÉCRANS ÉTROITS (MOBILE) --- */
-        @media (max-width: 600px) {
-            
-            /* Conteneur principal pour centrer tout le jeu sur mobile */
-            #menu, #jeu, #rules, #param {
-                display: flex !important; /* Force l'affichage en mode flexible */
-                flex-direction: column;
-                align-items: center; /* Centre les éléments horizontalement */
-                position: static;
-                padding-top: 20px;
-                min-height: 100vh;
-            }
-
-            /* 1. Redimensionner et Repositionner les Quadrants (Game Pads) */
-            .quarter-circle1, .q1, 
-            .quarter-circle2, .q2, 
-            .quarter-circle3, .qc3, 
-            .quarter-circle4, .qc4 {
-                width: 130px; /* Réduction de la taille */
-                height: 130px;
-                border-radius: 120px; 
-                position: static; /* Retire la position absolue */
-                margin: 5px; /* Ajoute de l'espace */
-            }
-            
-            /* Utilisation d'un conteneur Flexbox pour les 4 quadrants pour former un carré 2x2 */
-            #jeu {
-                display: flex;
-                flex-wrap: wrap; /* Permet aux quadrants de passer à la ligne */
-                width: 270px; /* Largeur pour contenir deux quadrants de 130px + marges */
-                margin: 0 auto;
-                position: relative; /* Base pour le bouton central */
-            }
-
-            /* 2. Redimensionner et repositionner le Bouton Central */
-            .simon1, .btn {
-                width: 100px; /* Réduction de la taille */
-                height: 100px; 
-                font-size: 14px; 
-                position: absolute; /* Reste en absolue par rapport au conteneur #jeu */
-                top: 50%; 
-                left: 50%;
-                transform: translate(-50%, -50%); /* Centrage parfait */
-            }
-
-            /* 3. Repositionner et Ajuster les Boutons de Menu / Retour / Score */
-            .simon2, .simon3, #best-score-display, #retour, #retour-rules {
-                position: static; /* Retire la position absolue */
-                margin: 10px auto; /* Centre et espace */
-                width: 90%; /* Utilise une largeur relative */
-                font-size: 10px;
-            }
-            #best-score-display { order: -1; margin-top: 10px; } /* Pour le placer en haut du menu */
-            #retour { order: -1; margin-top: 10px; } /* Pour le placer en haut du jeu */
-            #retour-rules { order: -1; margin-top: 10px; } 
-
-            /* 4. Ajuster les Boîtes de Texte (Règles/Paramètres) */
-            #rules-box-simple, #param-box {
-                position: static;
-                margin: 20px auto;
-                width: 90%;
-                font-size: small;
-            }
-        }
+        
     </style>
 </head>
 <body style="background-image: url(vector-black-future.jpg);">
@@ -349,7 +382,7 @@
             });
             const targetSection = document.getElementById(id);
             if (targetSection) {
-                targetSection.style.display = 'flex'; // Utiliser flex pour le responsive
+                targetSection.style.display = 'block';
             }
             
             if (id === 'menu') {
@@ -391,7 +424,7 @@
 
         /** Récupère le meilleur score stocké dans le localStorage. */
         function getBestScore() {
-            const score = localStorage.getItem(LOCAL_STORAGE_KEY); 
+            const score = localStorage.getItem(LOCAL_STORAGE_KEY); // Retourne l'entier stocké ou 0 si rien n'est trouvé
             return score ? parseInt(score, 10) : 0; 
         }
         /** Met à jour le meilleur score local si le nouveau score est supérieur. */
@@ -449,21 +482,18 @@
             let delay = 0;
 
             sequence.forEach((colorId, index) => {
-                // Flash chaque couleur après le délai cumulé
                 setTimeout(() => {
                     flashColor(colorId, FLASH_DURATION);
                     
                     // Une fois le dernier flash terminé, on donne la main au joueur
                     if (index === sequence.length - 1) {
-                        // Ajout d'un délai suffisant après le dernier flash pour commencer le tour du joueur
-                        setTimeout(startPlayerTurn, FLASH_DURATION + 50); 
+                        setTimeout(startPlayerTurn, INTERVAL + FLASH_DURATION + 50); // Délai après le dernier flash
                     }
                 }, delay);
                 
                 delay += INTERVAL; // Ajoute l'intervalle pour le prochain flash
             });
         }
-        
         /** Démarre le tour du joueur (active les clics). */
         function startPlayerTurn() {
             isPlayerTurn = true;
@@ -473,7 +503,6 @@
             
             roundInfo.textContent = `Répetez ${requiredClicks} ${clickWord}`;
         }
-        
         /** Gère le clic du joueur sur un quadrant. (Fonction globale pour le HTML onclick) */
         window.handlePlayerClick = function(clickedColor) {
             if (!isPlayerTurn || !gameActive) return; // Ignore si ce n'est pas le tour du joueur
@@ -530,9 +559,8 @@
             disablePulseAnimation(); // Arrête l'animation du menu
             setTimeout(nextRound, 1000); // Démarre le premier round après un délai
         }
-        
         /** Fin de la partie (par erreur ou par abandon). */
-        window.gameOver = function(isQuit) {
+        function gameOver(isQuit) {
             gameActive = false;
             isPlayerTurn = false;
             
@@ -564,7 +592,6 @@
             roundInfo.textContent = "Tour 0";
             displayBestScore();
         }
-        
         // Exécuté au chargement : Affiche le menu initial
         showSection('menu');
 
